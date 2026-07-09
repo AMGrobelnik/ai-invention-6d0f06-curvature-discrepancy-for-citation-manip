@@ -1,0 +1,27 @@
+{
+  "dataset": "cora",
+  "num_examples": 2708,
+  "sample_examples": [
+    {
+      "input": "{\"node_id\": 0, \"neighbors\": [633, 1862, 2582, 633, 1862, 2582], \"degree\": 6}",
+      "output": "3",
+      "metadata_node_id": 0,
+      "metadata_degree": 6,
+      "metadata_task_type": "classification"
+    },
+    {
+      "input": "{\"node_id\": 1, \"neighbors\": [2, 652, 654, 2, 652, 654], \"degree\": 6}",
+      "output": "4",
+      "metadata_node_id": 1,
+      "metadata_degree": 6,
+      "metadata_task_type": "classification"
+    },
+    {
+      "input": "{\"node_id\": 2, \"neighbors\": [1, 1, 332, 1454, 1666, 1986, 332, 1454, 1666, 1986], \"degree\": 10}",
+      "output": "4",
+      "metadata_node_id": 2,
+      "metadata_degree": 10,
+      "metadata_task_type": "classification"
+    }
+  ]
+}

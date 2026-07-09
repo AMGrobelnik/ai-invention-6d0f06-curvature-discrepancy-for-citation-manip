@@ -1,0 +1,204 @@
+{
+  "metadata": {
+    "method_name": "CurvatureDiscrepancyDetector",
+    "description": "Curvature discrepancy method for citation manipulation detection",
+    "parameters": {
+      "alpha": 0.5,
+      "or_method": "OTDSinkhornMix",
+      "forman_method": "augmented",
+      "nbr_topk": 3000,
+      "proc": 4,
+      "random_state": 42
+    }
+  },
+  "datasets": [
+    {
+      "dataset": "cora",
+      "examples": [
+        {
+          "input": "{\"task\": \"curvature_discrepancy_detection\", \"dataset\": \"cora\"}",
+          "output": "{\"mean_auc\": 0.7551169590643275, \"std_auc\": 0.0, \"ci_lower\": 0.608130081300813, \"ci_upper\": 0.8780487804878049}",
+          "metadata_task_type": "summary"
+        },
+        {
+          "input": "{\"edge\": [1862, 1986], \"task\": \"interpretability_case\"}",
+          "output": "{\"anomaly_score\": 0.6592857142857143, \"discrepancy\": 11.333333333318519, \"explanation\": \"Ollivier curvature (0.3333) > Forman curvature (-11.0000). This suggests strong local transport but weak cluste...",
+          "metadata_case_type": "high_discrepancy",
+          "metadata_edge": "(1862, 1986)",
+          "predict_anomaly_score": "0.6592857142857143"
+        },
+        {
+          "input": "{\"edge\": [0, 1666], \"task\": \"interpretability_case\"}",
+          "output": "{\"anomaly_score\": 0.6505877455877457, \"discrepancy\": 16.333333333322223, \"explanation\": \"Ollivier curvature (0.3333) > Forman curvature (-16.0000). This suggests strong local transport but weak cluste...",
+          "metadata_case_type": "high_discrepancy",
+          "metadata_edge": "(0, 1666)",
+          "predict_anomaly_score": "0.6505877455877457"
+        }
+      ]
+    }
+  ],
+  "experiment_results": {
+    "dataset": "cora",
+    "mean_auc_roc": 0.7551169590643275,
+    "std_auc_roc": 0.0,
+    "per_seed_results": [
+      {
+        "seed": 42,
+        "auc_point": 0.7551169590643275,
+        "ci_lower": 0.608130081300813,
+        "ci_upper": 0.8780487804878049,
+        "cv_scores_mean": 0.4637698412698413,
+        "cv_scores_std": 0.1590496586061922,
+        "feature_importances": [
+          0.26372281076475357,
+          0.21770572211973566,
+          0.2433413286890315
+        ],
+        "using_corrected_forman": true,
+        "num_anomalous_edges": 18,
+        "num_total_edges": 56,
+        "or_computation_time": 0.014535903930664062,
+        "paired_ttest_results": {
+          "LOF": {
+            "t_stat": 88.53636170556746,
+            "p_value": 0.0,
+            "cohens_d": 2.8011665209224907
+          },
+          "IsolationForest": {
+            "t_stat": 94.46456687865144,
+            "p_value": 0.0,
+            "cohens_d": 2.9887266322722903
+          }
+        },
+        "unsupervised_results": {
+          "LOF": 0.4919590643274854,
+          "IsolationForest": 0.48611111111111116
+        }
+      }
+    ]
+  },
+  "statistical_validation": {
+    "bootstrap_ci_95": {
+      "lower": 0.608130081300813,
+      "upper": 0.8780487804878049
+    },
+    "kfold_cv": {
+      "mean": 0.4637698412698413,
+      "std": 0.1590496586061922
+    }
+  },
+  "baseline_comparisons": {
+    "LOF": 0.4919590643274854,
+    "IsolationForest": 0.48611111111111116
+  },
+  "interpretability_cases": {
+    "high_discrepancy": [
+      {
+        "edge": [
+          1862,
+          1986
+        ],
+        "ollivier_curv": 0.33333333331851844,
+        "forman_curv": -11.0,
+        "discrepancy": 11.333333333318519,
+        "anomaly_score": 0.6592857142857143,
+        "y_true": 1,
+        "deg_u": 7,
+        "deg_v": 8,
+        "common_neighbors": 6,
+        "explanation": "Ollivier curvature (0.3333) > Forman curvature (-11.0000). This suggests strong local transport but weak clustering - possible anomalous citation."
+      },
+      {
+        "edge": [
+          0,
+          1666
+        ],
+        "ollivier_curv": 0.33333333332222215,
+        "forman_curv": -16.0,
+        "discrepancy": 16.333333333322223,
+        "anomaly_score": 0.6505877455877457,
+        "y_true": 0,
+        "deg_u": 10,
+        "deg_v": 10,
+        "common_neighbors": 8,
+        "explanation": "Ollivier curvature (0.3333) > Forman curvature (-16.0000). This suggests strong local transport but weak clustering - possible anomalous citation."
+      },
+      {
+        "edge": [
+          0,
+          2
+        ],
+        "ollivier_curv": 0.33333333332222215,
+        "forman_curv": -16.0,
+        "discrepancy": 16.333333333322223,
+        "anomaly_score": 0.6505877455877457,
+        "y_true": 1,
+        "deg_u": 10,
+        "deg_v": 10,
+        "common_neighbors": 8,
+        "explanation": "Ollivier curvature (0.3333) > Forman curvature (-16.0000). This suggests strong local transport but weak clustering - possible anomalous citation."
+      }
+    ],
+    "low_discrepancy": [
+      {
+        "edge": [
+          2582,
+          654
+        ],
+        "ollivier_curv": 0.16666666665694452,
+        "forman_curv": -15.0,
+        "discrepancy": 15.166666666656944,
+        "anomaly_score": 0.20030223942723946,
+        "y_true": 0,
+        "deg_u": 8,
+        "deg_v": 11,
+        "common_neighbors": 7,
+        "explanation": "Curvatures are consistent (diff=15.1667). Edge appears structurally normal for citation network."
+      },
+      {
+        "edge": [
+          1,
+          1454
+        ],
+        "ollivier_curv": 0.16666666665694452,
+        "forman_curv": -15.0,
+        "discrepancy": 15.166666666656944,
+        "anomaly_score": 0.20030223942723946,
+        "y_true": 0,
+        "deg_u": 10,
+        "deg_v": 9,
+        "common_neighbors": 7,
+        "explanation": "Curvatures are consistent (diff=15.1667). Edge appears structurally normal for citation network."
+      },
+      {
+        "edge": [
+          652,
+          1454
+        ],
+        "ollivier_curv": 0.16666666665694452,
+        "forman_curv": -15.0,
+        "discrepancy": 15.166666666656944,
+        "anomaly_score": 0.20030223942723946,
+        "y_true": 0,
+        "deg_u": 10,
+        "deg_v": 9,
+        "common_neighbors": 7,
+        "explanation": "Curvatures are consistent (diff=15.1667). Edge appears structurally normal for citation network."
+      }
+    ]
+  },
+  "figures": {
+    "roc_curves": "./figures/roc_curves.png",
+    "discrepancy_distribution": "./figures/discrepancy_distribution.png",
+    "runtime_comparison": "./figures/runtime_comparison.png"
+  },
+  "runtime_analysis": {
+    "ollivier_ricci_time": 0.014535903930664062
+  },
+  "forman_formula_correction": {
+    "correction_applied": true,
+    "corrected_formula": "F(e) = 4 - deg(u) - deg(v) for unweighted graphs",
+    "original_formula_error": "Previously used F(e) = 5 - deg(u) - deg(v)",
+    "verification_status": "Verified against Forman (2003)"
+  }
+}

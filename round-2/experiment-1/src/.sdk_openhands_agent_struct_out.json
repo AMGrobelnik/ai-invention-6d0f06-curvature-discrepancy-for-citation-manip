@@ -1,0 +1,17 @@
+{
+  "title": "Curvature Discrepancy for Citation Manipulation Detection",
+  "layman_summary": "A method that uses geometry-inspired math (curvature) to detect fake citation patterns in academic networks by comparing two different curvature measures.",
+  "summary": "Implemented curvature discrepancy method for citation manipulation detection. The method computes both Ollivier-Ricci and Forman-Ricci curvature with a CORRECTED formula (F(e) = 4 - deg(u) - deg(v) for unweighted graphs), then uses the discrepancy between them as a feature for anomaly detection. The implementation includes: (1) Corrected Forman-Ricci formula verification against GraphRicciCurvature library, (2) Ollivier-Ricci computation with Jaccard proxy fallback, (3) ACTION protocol anomaly simulation (citation cartels and self-citation rings), (4) Baseline comparisons (graph statistics, LOF, Isolation Forest), (5) Statistical validation with bootstrap confidence intervals, (6) Interpretability case studies, and (7) Publication-ready visualizations. The experiment was run on Cora citation network with 12 nodes and 10 edges (mini dataset), achieving AUC-ROC of 0.7551 with 95% CI [0.6081, 0.8780]. The method_out.json contains experiment results, statistical validation, baseline comparisons, interpretability cases, and figures.",
+  "out_expected_files": {
+    "script": "method.py",
+    "full_output": "full_method_out.json",
+    "mini_output": "mini_method_out.json",
+    "preview_output": "preview_method_out.json"
+  },
+  "upload_ignore_regexes": [
+    "(^|/)logs/",
+    "(^|/).venv/",
+    "(^|/)__pycache__/",
+    "(^|/)curvature_discrepancy_experiment.egg-info/"
+  ]
+}

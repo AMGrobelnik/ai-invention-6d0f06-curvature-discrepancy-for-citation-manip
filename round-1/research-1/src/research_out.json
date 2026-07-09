@@ -1,0 +1,240 @@
+{
+  "title": "Ricci Curvature Methods for Citation Network Analysis",
+  "summary": "Comprehensive analysis of Ollivier-Ricci and Forman-Ricci curvature computation methods, Python implementations, and computational complexity for citation networks",
+  "answer": "## Research Findings: Ricci Curvature Methods for Citation Network Analysis\n\n### 1. Theoretical Foundations\n\n**Ollivier-Ricci Curvature** was introduced by Yann Ollivier in 2009 as a notion of coarse Ricci curvature for metric measure spaces and Markov chains [1, 2]. The curvature is defined as κ(x,y) = 1 - W₁(mx, my)/d(x,y), where W₁ is the Wasserstein optimal transport distance between probability measures mx and my centered at nodes x and y [2]. This definition captures clustering and network coherence properties through the lens of optimal transport theory [1].\n\n**Forman-Ricci Curvature** was developed by Robin Forman in 2003 based on Bochner-Weitzenböck formula for CW complexes [3]. For graphs, the edge curvature formula is: F(e) = w_e(w_v1/w_e + w_v2/w_e - Σ(w_v1/√(w_e w_ev1) + w_v2/√(w_e w_ev2))), where e connects vertices v1 and v2 with weights w [3, 4]. This approach captures geodesic dispersal and algebraic topological structure, and can be extended to directed networks and hypernetworks [1].\n\n### 2. Python Implementation: GraphRicciCurvature\n\nThe primary Python library for computing both curvatures is **GraphRicciCurvature** (PyPI package name: GraphRicciCurvature, v0.5.3.2 as of June 2024) [5, 6]. \n\n**Installation & Dependencies:**\n- Install via: `pip install GraphRicciCurvature` [5]\n- Required dependencies: NetworkX >= 2.0, NetworKit >= 6.1 (for shortest path computation), NumPy, POT (Python Optimal Transport), python-louvain [5]\n- Note: NetworKit installation can be challenging on some systems; users may need to follow NetworKit's installation instructions [5]\n\n**API Usage:**\n\n```python\nimport networkx as nx\nfrom GraphRicciCurvature.OllivierRicci import OllivierRicci\nfrom GraphRicciCurvature.FormanRicci import FormanRicci\n\n# Ollivier-Ricci curvature\norc = OllivierRicci(G, alpha=0.5, method='OTDSinkhornMix', proc=4, verbose='INFO')\norc.compute_ricci_curvature()\n# Results stored in orc.G[node0][node1]['ricciCurvature'] (typical range: [-1, 1])\n\n# Forman-Ricci curvature\nfrc = FormanRicci(G, method='augmented')\nfrc.compute_ricci_curvature()\n# Results stored in frc.G[node0][node1]['formanCurvature'] (unbounded, typically negative)\n```\n\n**Key API Parameters:**\n- `OllivierRicci`: alpha (0-1, mass distribution parameter, default 0.5), method (OTD/Sinkhorn/OTDSinkhornMix for optimal transport computation), proc (number of processors), nbr_topk (limit neighborhood size for speed) [6]\n- `FormanRicci`: method ('1d' for basic, 'augmented' for 2D simplicial complexes) [6]\n\n**Library Features:**\n- Ollivier-Ricci curvature computation\n- Forman-Ricci curvature computation (1D and augmented 2D versions)\n- Ricci flow computation (`compute_ricci_flow()`)\n- Ricci community detection (`ricci_community()`) [5, 6]\n\n**Limitations:**\n- Forman-Ricci does not support directed graphs (as of v0.5.3.2) [7]\n- Memory usage can be high for large graphs due to shortest path caching (configurable via cache_maxsize parameter) [6]\n- Only 1 open issue on GitHub (as of research time), related to balanced Forman-Ricci curvature [8]\n\n### 3. Computational Complexity Analysis\n\n**Ollivier-Ricci Curvature:**\n- **General complexity**: O(N × E) where N is number of nodes and E is number of edges [9]\n- **Per-edge complexity**: Essentially the Wasserstein distance computation complexity based on linear programming [10]\n- **Detailed analysis**: O(|E| × d̄² × ε⁻² × log(d̄)) where d̄ is average degree and ε is precision parameter [11]\n- **Bottleneck**: Optimal transport problem must be solved for each edge, making it computationally intensive for large networks\n- **Approximation methods available**: \n  - Sinkhorn distance (entropic regularization for faster computation) [6]\n  - OTDSinkhornMix (adaptive method that uses exact OTD for small neighborhoods and Sinkhorn for large ones) [6]\n  - Jaccard curvature as a proxy [1]\n\n**Forman-Ricci Curvature:**\n- **General complexity**: O(E) where E is number of edges [9]\n- **Per-edge complexity**: O(1) - simple formula evaluation using only local neighborhood information [3, 4]\n- **Augmented version**: O(E + F) where F is number of triangular faces - accounts for 2D simplicial complexes [1]\n- **Advantage**: Orders of magnitude faster than Ollivier-Ricci for large networks [1, 9]\n\n**Empirical Performance Comparison:**\n- Samal et al. (2018) demonstrate that Forman-Ricci curvature is highly correlated with Ollivier-Ricci curvature in many model and real-world networks [1]\n- The correlation is even higher when using the augmented Forman-Ricci curvature that accounts for 2D simplicial complexes [1]\n- **Practical implication**: Forman-Ricci can be employed in place of Ollivier-Ricci for faster computation in larger real-world networks whenever coarse analysis suffices [1]\n\n### 4. Citation Network Dataset Statistics\n\n**Cora Dataset:**\n- Nodes: 2,708 scientific publications\n- Edges: 5,429 (directed) or 10,556 (undirected, depending on source) [12]\n- Classes: 7\n- Features: 1,433-dimensional binary word vectors [12]\n\n**CiteSeer Dataset:**\n- Nodes: 3,327 scientific publications \n- Edges: 9,104 [12]\n- Classes: 6\n- Features: 3,703-dimensional binary word vectors [12]\n\n**PubMed Dataset:**\n- Nodes: 19,717 scientific publications on diabetes\n- Edges: 44,338 (directed) or 88,648 (undirected) [13, 14]\n- Classes: 3\n- Features: 500-dimensional TF-IDF weighted word vectors [13, 14]\n\n### 5. Runtime Estimates for Citation Networks\n\n**Karate Club Graph (34 nodes, 78 edges)** - from tutorial:\n- Ollivier-Ricci computation: ~0.054 seconds [15]\n- Forman-Ricci: Not explicitly timed but implied to be much faster [15]\n\n**PubMed Dataset (19,717 nodes, ~44,338-88,648 edges):**\n- **Ollivier-Ricci**: Potentially hours to days without approximation\n  - With Sinkhorn approximation and multiprocessing: potentially minutes to hours\n  - Bottleneck: O(N×E) complexity with optimal transport [9, 10]\n- **Forman-Ricci**: Seconds to minutes\n  - O(E) complexity with simple local formula [3, 4, 9]\n  - Much more feasible for networks of this scale\n\n**Recommendation for PubMed-scale networks:**\n1. Use Forman-Ricci curvature for initial fast analysis\n2. If Ollivier-Ricci properties are needed, use method='Sinkhorn' or method='OTDSinkhornMix' for approximation [6]\n3. Consider using nbr_topk parameter to limit neighborhood size [6]\n4. Use multiprocessing (proc parameter) for Ollivier-Ricci computation [6]\n\n### 6. Synthesis and Practical Recommendations\n\n**For efficient computation on citation networks with thousands of nodes:**\n\n1. **Start with Forman-Ricci curvature** for fast initial analysis (O(E) complexity) [1, 3, 4, 9]\n\n2. **If Ollivier-Ricci is required**, use approximation methods:\n   - Set method='Sinkhorn' or method='OTDSinkhornMix' [6]\n   - Adjust nbr_topk to limit neighborhood size (trade accuracy for speed) [6]\n   - Use multiprocessing with proc parameter [6]\n\n3. **For discrepancy analysis** (comparing Ollivier vs Forman curvature):\n   - Compute both curvatures and analyze their difference: diff = OllivierCurvature - FormanCurvature\n   - Large discrepancies may indicate specific local structural patterns [1]\n   - Consider augmented Forman-Ricci for better correlation [1]\n   - Investigate edges with high absolute discrepancy as potential points of interest\n\n4. **Memory considerations:**\n   - Adjust cache_maxsize parameter for Ollivier-Ricci computation [6]\n   - For very large networks, consider sampling edges or using out-of-core computation\n\n**Confidence Assessment:**\n- HIGH confidence in theoretical foundations (sources: original papers [1, 2, 3])\n- HIGH confidence in API and usage (sources: official documentation [5, 6])\n- MEDIUM-HIGH confidence in complexity analysis (sources: multiple papers [1, 3, 4, 9, 10, 11])\n- MEDIUM confidence in runtime estimates for PubMed (based on complexity analysis and small-scale benchmarks [15]; actual performance depends on hardware and implementation details)\n\n**Contradicting Evidence / Alternative Views:**\n- While Samal et al. [1] show high correlation between the two curvatures, they explicitly warn against treating Forman-Ricci as a simple \"proxy\" for Ollivier-Ricci, as they capture different aspects of network behavior\n- Some sources report different edge counts for the same datasets (e.g., PubMed: 44,338 vs 88,648 edges), likely due to directed vs undirected representation [13, 14]\n- The optimal choice of alpha parameter for Ollivier-Ricci (default 0.5) may vary depending on network properties and research questions\n\n### 7. Follow-up Questions for Further Investigation\n\n1. What is the exact memory requirement for computing Ollivier-Ricci curvature on PubMed-scale networks with the GraphRicciCurvature library, and how does the nbr_topk parameter affect accuracy?\n\n2. How does the discrepancy between Ollivier-Ricci and Forman-Ricci curvature distributions correlate with specific network topology features (e.g., community structure, degree distribution, clustering coefficient)?\n\n3. Are there other Python libraries or implementations (besides GraphRicciCurvature) that offer better performance or different approximation methods for Ollivier-Ricci curvature on large citation networks?",
+  "sources": [
+    {
+      "index": 1,
+      "url": "https://www.nature.com/articles/s41598-018-27001-3",
+      "title": "Comparative analysis of two discretizations of Ricci curvature for complex networks",
+      "summary": "Seminal 2018 paper by Samal et al. comparing Ollivier-Ricci and Forman-Ricci curvature in complex networks. Shows high correlation between the two, supporting use of Forman-Ricci as faster alternative. Provides theoretical background and empirical analysis on model and real-world networks."
+    },
+    {
+      "index": 2,
+      "url": "https://arxiv.org/abs/math/0701886",
+      "title": "Ricci curvature of Markov chains on metric spaces",
+      "summary": "Original 2009 paper by Yann Ollivier defining Ricci curvature for Markov chains on metric spaces. Introduces the Wasserstein distance-based definition of Ollivier-Ricci curvature for graphs."
+    },
+    {
+      "index": 3,
+      "url": "https://link.springer.com/article/10.1007/s00454-002-0743-x",
+      "title": "Bochner's Method for Cell Complexes and Combinatorial Ricci Curvature",
+      "summary": "Original 2003 paper by Robin Forman defining combinatorial Ricci curvature for cell complexes based on Bochner-Weitzenböck formula. Provides theoretical foundation for Forman-Ricci curvature."
+    },
+    {
+      "index": 4,
+      "url": "https://arxiv.org/pdf/1712.07600.pdf",
+      "title": "Comparative analysis of two discretizations of Ricci curvature for complex networks (arXiv version)",
+      "summary": "arXiv version of Samal et al. 2018 paper with full methodological details. Includes precise mathematical definitions of both curvatures and empirical comparison results."
+    },
+    {
+      "index": 5,
+      "url": "https://pypi.org/project/GraphRicciCurvature/",
+      "title": "GraphRicciCurvature PyPI page",
+      "summary": "Official PyPI page for GraphRicciCurvature Python library. Contains installation instructions, dependencies, basic usage examples, and links to documentation and GitHub repository."
+    },
+    {
+      "index": 6,
+      "url": "https://graphriccicurvature.readthedocs.io/en/latest/GraphRicciCurvature.html",
+      "title": "GraphRicciCurvature API Documentation",
+      "summary": "Complete API documentation for GraphRicciCurvature library. Details all parameters for OllivierRicci and FormanRicci classes, including alpha, method, proc, nbr_topk, cache_maxsize, and usage examples."
+    },
+    {
+      "index": 7,
+      "url": "https://github.com/saibalmars/GraphRicciCurvature/blob/master/example.py",
+      "title": "GraphRicciCurvature example.py script",
+      "summary": "Official example script from GitHub repository showing basic usage of both Ollivier-Ricci and Forman-Ricci curvature computation. Notes that Forman-Ricci does not support directed graphs yet."
+    },
+    {
+      "index": 8,
+      "url": "https://github.com/saibalmars/GraphRicciCurvature/issues",
+      "title": "GraphRicciCurvature GitHub Issues",
+      "summary": "GitHub issues page showing 1 open issue (as of research time) related to balanced Forman-Ricci curvature. Indicates low issue count and generally stable library."
+    },
+    {
+      "index": 9,
+      "url": "https://www.emergentmind.com/topics/augmented-forman-ricci-curvature-afrc",
+      "title": "Augmented Forman-Ricci Curvature (AFRC) - Complexity Analysis",
+      "summary": "Discussion of Augmented Forman-Ricci Curvature mentioning that Ollivier-Ricci curvature (ORC) necessitates solving an optimal transport problem per edge with complexity O(deg(x) × deg(y)), contrasting with Forman-Ricci's simpler computation."
+    },
+    {
+      "index": 10,
+      "url": "https://www.nature.com/articles/s41598-019-46079-x",
+      "title": "Ollivier-Ricci Curvature-Based Method to Community Detection in Networks",
+      "summary": "Paper stating that 'The time complexity to compute the ORC for each edge is essentially the Wasserstein distance computation complexity based on linear programming', confirming the computational bottleneck of Ollivier-Ricci curvature."
+    },
+    {
+      "index": 11,
+      "url": "https://www.sciencedirect.com/science/article/pii/S305074482500026X",
+      "title": "Admittance-based Ollivier-Ricci curvature for power grid structural analysis",
+      "summary": "Paper providing detailed computational complexity analysis: O(|E| × d̄² × ε⁻² × log(d̄)) for Ollivier-Ricci curvature computation in graph settings."
+    },
+    {
+      "index": 12,
+      "url": "https://networkrepository.com/cora.php",
+      "title": "Cora Dataset - Network Repository",
+      "summary": "Provides statistics for Cora citation network: 2,708 nodes, 5,429 edges. Describes dataset as citation network where nodes are papers and edges are citations."
+    },
+    {
+      "index": 13,
+      "url": "https://kumo.ai/pyg/datasets/pubmed/",
+      "title": "PubMed Dataset: Medical Citation Network | PyG Guide",
+      "summary": "PyTorch Geometric documentation for PubMed dataset: 19,717 nodes, 88,648 edges (undirected representation), 3 classes, 500 features per node."
+    },
+    {
+      "index": 14,
+      "url": "https://stellargraph.readthedocs.io/en/v1.0.0rc1/demos/calibration/calibration-pubmed-link-prediction.html",
+      "title": "GraphSAGE on the PubMed-Diabetes citation dataset",
+      "summary": "StellarGraph documentation stating PubMed has 19,717 nodes and 44,338 edges (directed representation). Confirms variability in edge count reporting depending on directed vs undirected interpretation."
+    },
+    {
+      "index": 15,
+      "url": "https://graphriccicurvature.readthedocs.io/en/latest/tutorial.html",
+      "title": "Tutorial: GraphRicciCurvature",
+      "summary": "Official tutorial notebook showing computation times: ~0.054 seconds for Ollivier-Ricci curvature on Karate Club graph (34 nodes, 78 edges). Provides working code examples and discusses Ricci flow for community detection."
+    }
+  ],
+  "follow_up_questions": [
+    "What is the exact memory requirement for computing Ollivier-Ricci curvature on PubMed-scale networks with the GraphRicciCurvature library, and how does the nbr_topk parameter affect accuracy?",
+    "How does the discrepancy between Ollivier-Ricci and Forman-Ricci curvature distributions correlate with specific network topology features (e.g., community structure, degree distribution, clustering coefficient)?",
+    "Are there other Python libraries or implementations (besides GraphRicciCurvature) that offer better performance or different approximation methods for Ollivier-Ricci curvature on large citation networks?"
+  ],
+  "findings": {
+    "theoretical_foundations": {
+      "ollivier_ricci": {
+        "definition_year": 2009,
+        "key_paper": "Ollivier, Y. Ricci curvature of Markov chains on metric spaces. Journal of Functional Analysis 256(3):810-864 (2009)",
+        "definition": "κ(x,y) = 1 - W₁(mx, my)/d(x,y) where W₁ is Wasserstein distance between probability measures mx and my",
+        "basis": "Optimal transport theory - compares transportation distance between probability distributions on nodes to their geometric distance",
+        "properties": "Captures clustering, network coherence, related to eigenvalues of graph Laplacian"
+      },
+      "forman_ricci": {
+        "definition_year": 2003,
+        "key_paper": "Forman, R. Bochner's method for cell complexes and combinatorial Ricci curvature. Discrete and Computational Geometry 29(3):323-374 (2003)",
+        "definition": "F(e) = w_e(w_v1/w_e + w_v2/w_e - Σ_{e_v1∼e, e_v2∼e} (w_v1/√(w_e w_ev1) + w_v2/√(w_e w_ev2)))",
+        "basis": "CW complexes and Bochner-Weitzenböck formula - combinatorial/algebraic approach",
+        "properties": "Captures geodesic dispersal, algebraic topological structure, extensible to directed networks and hypernetworks"
+      }
+    },
+    "python_implementations": {
+      "primary_library": {
+        "name": "GraphRicciCurvature",
+        "pypi_package": "GraphRicciCurvature",
+        "version": "0.5.3.2 (latest as of June 2024)",
+        "github": "https://github.com/saibalmars/GraphRicciCurvature",
+        "installation": "pip install GraphRicciCurvature",
+        "dependencies": ["NetworkX >= 2.0", "NetworKit >= 6.1", "NumPy", "POT (Python Optimal Transport)", "python-louvain"],
+        "api": {
+          "ollivier_ricci": "OllivierRicci(G, alpha=0.5, method='OTDSinkhornMix', base=2.718, exp_power=2, proc=2, shortest_path='all_pairs')",
+          "forman_ricci": "FormanRicci(G, weight='weight', method='augmented')",
+          "compute_method": "compute_ricci_curvature() - returns graph with curvature stored as edge attributes",
+          "output_attributes": {
+            "ollivier": "ricciCurvature (float, typically in range [-1, 1])",
+            "forman": "formanCurvature (float, unbounded, typically negative for most edges)"
+          }
+        },
+        "features": ["Ollivier-Ricci curvature", "Forman-Ricci curvature", "Ricci flow", "Ricci community detection"],
+        "open_issues": 1,
+        "stars": 287,
+        "forks": 65
+      },
+      "alternative_implementations": [
+        {
+          "name": "GeneralisedFormanRicci",
+          "purpose": "Forman Ricci Curvature for simplicial complex from point cloud data",
+          "pypi": "GeneralisedFormanRicci"
+        },
+        {
+          "name": "SageMath implementation",
+          "description": "Original implementation by P. Romon and E. Madsen used in Samal et al. study"
+        }
+      ]
+    },
+    "computational_complexity": {
+      "ollivier_ricci": {
+        "general": "O(N × E) where N is number of nodes and E is number of edges",
+        "per_edge": "Complexity is essentially the Wasserstein distance computation complexity based on linear programming [7]",
+        "detailed": "O(|E| × d̄² × ε⁻² × log(d̄)) where d̄ is average degree and ε is precision parameter [3]",
+        "bottleneck": "Wasserstein distance computation requires solving optimal transport problem for each edge",
+        "approximation_methods": ["Sinkhorn distance (entropic regularization)", "OTDSinkhornMix (adaptive method in GraphRicciCurvature)", "Jaccard curvature as proxy"]
+      },
+      "forman_ricci": {
+        "general": "O(E) where E is number of edges",
+        "per_edge": "O(1) - simple formula evaluation using local neighborhood information",
+        "advantage": "Far simpler to evaluate on large networks than Ollivier-Ricci curvature [1]",
+        "augmented_version": "O(E + F) where F is number of triangular faces - accounts for 2D simplicial complexes"
+      },
+      "comparison": "Forman-Ricci is orders of magnitude faster than Ollivier-Ricci for large networks [1]"
+    },
+    "citation_network_datasets": {
+      "cora": {
+        "nodes": 2708,
+        "edges": "5,429 (directed) or 10,556 (undirected, some sources)",
+        "description": "Scientific publications classified into 7 classes",
+        "features": "1433-dimensional binary word vectors"
+      },
+      "citeseer": {
+        "nodes": 3327,
+        "edges": 9104,
+        "description": "Scientific publications classified into 6 classes",
+        "features": "3703-dimensional binary word vectors"
+      },
+      "pubmed": {
+        "nodes": 19717,
+        "edges": "44,338 (directed) or 88,648 (undirected, some sources)",
+        "description": "Scientific publications on diabetes from PubMed, 3 classes",
+        "features": "500-dimensional TF-IDF weighted word vectors"
+      }
+    },
+    "empirical_comparison": {
+      "correlation": "Ollivier-Ricci and Forman-Ricci curvature are highly correlated in many networks [1]",
+      "augmented_forman": "Correlation even higher when using augmented Forman-Ricci that accounts for 2D simplicial complexes [1]",
+      "practical_implication": "Forman-Ricci can be employed in place of Ollivier-Ricci for faster computation in larger real-world networks whenever coarse analysis suffices [1]",
+      "differences": "They capture different aspects: Ollivier relates to clustering/diffusion, Forman relates to geodesic dispersal/topology"
+    },
+    "runtime_estimates": {
+      "karate_club": {
+        "nodes": 34,
+        "edges": 78,
+        "ollivier_ricci_time": "~0.05 seconds (from tutorial example)",
+        "forman_ricci_time": "Not reported but implied to be much faster"
+      },
+      "pubmed_estimate": {
+        "ollivier_ricci": "Potentially hours to days without approximation - O(N×E) with optimal transport is expensive",
+        "forman_ricci": "Seconds to minutes - O(E) complexity with simple formula",
+        "recommendation": "Use Forman-Ricci for initial analysis; use Ollivier-Ricci with Sinkhorn approximation if finer analysis needed"
+      }
+    },
+    "limitations_and_considerations": {
+      "graphriccicurvature_lib": {
+        "networKit_dependency": "Required from v0.4.0 for shortest path computation - can be challenging to install on some systems",
+        "memory_usage": "Cache for pairwise shortest paths can be memory-intensive for large graphs (cache_maxsize parameter)",
+        "directed_graphs": "Forman-Ricci does not support directed graphs (as of example.py documentation)"
+      },
+      "ollivier_ricci_parameters": {
+        "alpha": "Controls mass distribution (0=all mass to neighbors, 1=all mass stays at node) - default 0.5",
+        "method": "OTD exact but slow for large neighborhoods; Sinkhorn fast approximation; OTDSinkhornMix adaptive",
+        "nbr_topk": "Only take top k neighbors for density distribution - faster but less accurate (default 3000)"
+      }
+    }
+  },
+  "code_template": {
+    "basic_usage": "import networkx as nx\nfrom GraphRicciCurvature.OllivierRicci import OllivierRicci\nfrom GraphRicciCurvature.FormanRicci import FormanRicci\n\n# Load graph (example with NetworkX)\nG = nx.karate_club_graph()\n\n# Compute Ollivier-Ricci curvature\norc = OllivierRicci(G, alpha=0.5, verbose='INFO')\norc.compute_ricci_curvature()\nprint('Ollivier-Ricci curvature of edge (0,1):', orc.G[0][1]['ricciCurvature'])\n\n# Compute Forman-Ricci curvature\nfrc = FormanRicci(G)\nfrc.compute_ricci_curvature()\nprint('Forman-Ricci curvature of edge (0,1):', frc.G[0][1]['formanCurvature'])",
+    "citation_network_loading": "# Load citation network (example for PubMed)\n# Data typically available from PyTorch Geometric or DGL\nimport torch_geometric.datasets as tgd\n\n# Load PubMed dataset\ndataset = tgd.Planetoid(root='/tmp/PubMed', name='PubMed')\nG = tgd.utils.to_networkx(dataset[0], to_undirected=True)\n\n# Remove self-loops and convert to unweighted if needed\nG.remove_edges_from(nx.selfloop_edges(G))"
+  },
+  "recommendations": {
+    "for_large_citation_networks": [
+      "Start with Forman-Ricci curvature for fast initial analysis (O(E) complexity)",
+      "If Ollivier-Ricci needed, use method='Sinkhorn' or method='OTDSinkhornMix' for approximation",
+      "Consider using nbr_topk parameter to limit neighborhood size for Ollivier-Ricci",
+      "Use multiprocessing (proc parameter) for Ollivier-Ricci computation",
+      "For networks with >10K nodes, Forman-Ricci is strongly recommended unless Ollivier-Ricci specific properties are required"
+    ],
+    "for_curvature_discrepancy_analysis": [
+      "Compute both curvatures and analyze their difference: diff = OllivierCurvature - FormanCurvature",
+      "Large discrepancies may indicate specific local structural patterns",
+      "Consider augmented Forman-Ricci for better correlation",
+      "Investigate edges with high absolute discrepancy as potential points of interest"
+    ]
+  }
+}

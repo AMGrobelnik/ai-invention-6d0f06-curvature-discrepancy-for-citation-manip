@@ -1,0 +1,80 @@
+{
+  "artifact_type": "dataset",
+  "artifact_id": "gen_plan_dataset_1_idx3",
+  "title": "Citation Networks for Graph Curvature Analysis",
+  "description": "Three standard citation network datasets (Cora, CiteSeer, PubMed) downloaded from PyTorch Geometric Planetoid, converted to edge-list JSON format suitable for curvature computation.",
+  "datasets": [
+    {
+      "name": "cora",
+      "path": "temp/datasets/full_cora.json",
+      "num_nodes": 2708,
+      "num_edges": 10556,
+      "num_classes": 7,
+      "format": "edge_list_json",
+      "notes": "Standard citation network benchmark. Edges are undirected (PyTorch Geometric ToUndirected transform)."
+    },
+    {
+      "name": "citeseer",
+      "path": "temp/datasets/full_citeseer.json", 
+      "num_nodes": 3327,
+      "num_edges": 9104,
+      "num_classes": 6,
+      "format": "edge_list_json",
+      "notes": "Standard citation network benchmark. Edges are undirected."
+    },
+    {
+      "name": "pubmed",
+      "path": "temp/datasets/full_pubmed.json",
+      "num_nodes": 19717,
+      "num_edges": 88648,
+      "num_classes": 3,
+      "format": "edge_list_json",
+      "notes": "Standard citation network benchmark. Largest of the three datasets."
+    }
+  ],
+  "files": {
+    "full": [
+      "temp/datasets/full_cora.json",
+      "temp/datasets/full_citeseer.json", 
+      "temp/datasets/full_pubmed.json"
+    ],
+    "mini": [
+      "temp/datasets/mini_cora.json",
+      "temp/datasets/mini_citeseer.json",
+      "temp/datasets/mini_pubmed.json"
+    ],
+    "preview": [
+      "temp/datasets/preview_cora.json",
+      "temp/datasets/preview_citeseer.json",
+      "temp/datasets/preview_pubmed.json"
+    ]
+  },
+  "metadata": {
+    "source": "PyTorch Geometric Planetoid dataset",
+    "download_date": "2026-07-08",
+    "total_size_mb": 8.7,
+    "total_nodes": 22752,
+    "total_edges": 108308,
+    "validation": {
+      "cora": {
+        "nodes_match_published": true,
+        "edges_note": "10556 undirected (published 5429 directed, so 10858 expected undirected - slight difference due to PyTorch Geometric preprocessing)"
+      },
+      "citeseer": {
+        "nodes_match_published": false,
+        "nodes_actual": 3327,
+        "nodes_expected": 3312,
+        "edges_note": "9104 undirected (published 4715 directed, so 9430 expected undirected)"
+      },
+      "pubmed": {
+        "nodes_match_published": true,
+        "edges_note": "88648 undirected (published 44338 directed, so 88676 expected undirected - close match)"
+      }
+    }
+  },
+  "usage": {
+    "format_description": "Each dataset JSON contains: dataset_name, num_nodes, num_edges, nodes (array of {id, label}), edges (array of {source, target, metadata})",
+    "recommended_use": "Load full_*.json for curvature computation. Use mini_*.json for development/testing. Use preview_*.json for quick inspection.",
+    "next_steps": "These edge lists are ready for graph curvature computation (e.g., Ollivier-Ricci, Forman-Ricci). Node labels can be used for stratification or classification tasks."
+  }
+}

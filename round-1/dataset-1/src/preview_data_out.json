@@ -1,0 +1,88 @@
+{
+  "metadata": {
+    "description": "Citation network datasets for graph-based citation pattern detection",
+    "source": "PyTorch Geometric Planetoid",
+    "num_datasets": 3,
+    "total_examples": 25752
+  },
+  "datasets": [
+    {
+      "dataset": "cora",
+      "examples": [
+        {
+          "input": "{\"node_id\": 0, \"neighbors\": [633, 1862, 2582, 633, 1862, 2582], \"degree\": 6}",
+          "output": "3",
+          "metadata_node_id": 0,
+          "metadata_degree": 6,
+          "metadata_task_type": "classification"
+        },
+        {
+          "input": "{\"node_id\": 1, \"neighbors\": [2, 652, 654, 2, 652, 654], \"degree\": 6}",
+          "output": "4",
+          "metadata_node_id": 1,
+          "metadata_degree": 6,
+          "metadata_task_type": "classification"
+        },
+        {
+          "input": "{\"node_id\": 2, \"neighbors\": [1, 1, 332, 1454, 1666, 1986, 332, 1454, 1666, 1986], \"degree\": 10}",
+          "output": "4",
+          "metadata_node_id": 2,
+          "metadata_degree": 10,
+          "metadata_task_type": "classification"
+        }
+      ]
+    },
+    {
+      "dataset": "citeseer",
+      "examples": [
+        {
+          "input": "{\"node_id\": 0, \"neighbors\": [628, 628], \"degree\": 2}",
+          "output": "3",
+          "metadata_node_id": 0,
+          "metadata_degree": 2,
+          "metadata_task_type": "classification"
+        },
+        {
+          "input": "{\"node_id\": 1, \"neighbors\": [158, 486, 1097, 2919, 2933, 158, 486, 1097, 2919, 2933], \"degree\": 10}",
+          "output": "1",
+          "metadata_node_id": 1,
+          "metadata_degree": 10,
+          "metadata_task_type": "classification"
+        },
+        {
+          "input": "{\"node_id\": 2, \"neighbors\": [3285, 3285], \"degree\": 2}",
+          "output": "5",
+          "metadata_node_id": 2,
+          "metadata_degree": 2,
+          "metadata_task_type": "classification"
+        }
+      ]
+    },
+    {
+      "dataset": "pubmed",
+      "examples": [
+        {
+          "input": "{\"node_id\": 0, \"neighbors\": [1378, 1544, 6092, 7636, 14442, 1378, 1544, 6092, 7636, 14442], \"degree\": 10}",
+          "output": "1",
+          "metadata_node_id": 0,
+          "metadata_degree": 10,
+          "metadata_task_type": "classification"
+        },
+        {
+          "input": "{\"node_id\": 1, \"neighbors\": [2943, 8359, 10199, 2943, 8359, 10199], \"degree\": 6}",
+          "output": "1",
+          "metadata_node_id": 1,
+          "metadata_degree": 6,
+          "metadata_task_type": "classification"
+        },
+        {
+          "input": "{\"node_id\": 2, \"neighbors\": [10471, 11485, 15572, 10471, 11485, 15572], \"degree\": 6}",
+          "output": "0",
+          "metadata_node_id": 2,
+          "metadata_degree": 6,
+          "metadata_task_type": "classification"
+        }
+      ]
+    }
+  ]
+}
