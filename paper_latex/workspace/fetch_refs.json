@@ -1,0 +1,14 @@
+{
+  "references": [
+    {"title": "Anomalous citations detection in academic networks", "author": "Liu", "year": 2024},
+    {"title": "Detecting anomalous citation groups in journal networks", "author": "Kojaku", "year": 2021, "doi": "10.1038/s41598-021-93869-8"},
+    {"title": "CurvGAD: Leveraging Curvature for Enhanced Graph Anomaly Detection", "author": "Grover", "year": 2025, "arxiv": "2502.08605"},
+    {"title": "Ricci curvature of Markov chains on metric spaces", "author": "Ollivier", "year": 2009, "doi": "10.1016/j.jfa.2008.10.018"},
+    {"title": "Bochner's Method for Cell Complexes and Combinatorial Ricci Curvature", "author": "Forman", "year": 2003, "doi": "10.1007/s00454-002-0006-0"},
+    {"title": "Comparative analysis of two discretizations of Ricci curvature for complex networks", "author": "Samal", "year": 2018, "doi": "10.1038/s41598-018-26934-4"},
+    {"title": "Detecting network anomalies using Forman-Ricci curvature and a case study for human brain networks", "author": "Chatterjee", "year": 2021, "doi": "10.1038/s41598-021-91154-2"},
+    {"title": "Revisiting Semi-Supervised Learning with Graph Embeddings", "author": "Yang", "year": 2016},
+    {"title": "SAGE Publications busts peer review and citation ring 60 papers retracted", "author": "Retraction", "year": 2014},
+    {"title": "What do we know about journal citation cartels", "author": "CWTS", "year": 2021}
+  ]
+}

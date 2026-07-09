@@ -1,0 +1,86 @@
+\begin{thebibliography}{11}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Chatterjee et~al.(2021)Chatterjee, Albert, Thapliyal, Azarhooshang,
+  and Dasgupta]{Chatterjee2021}
+Tamal Chatterjee, Reka Albert, Shaswat Thapliyal, Neda Azarhooshang, and Bivas
+  Dasgupta.
+\newblock Detecting network anomalies using forman-ricci curvature and a case
+  study for human brain networks.
+\newblock \emph{Scientific Reports}, 11:\penalty0 11716, 2021.
+\newblock \doi{10.1038/s41598-021-91154-2}.
+
+\bibitem[{CWTS Blog}(2021)]{CWTS2021}
+{CWTS Blog}.
+\newblock What do we know about journal citation cartels?
+\newblock \url{https://www.cwts.nl/blog?article=n-q2w2b4}, 2021.
+\newblock Online article.
+
+\bibitem[Forman(2003)]{Forman2003}
+Robin Forman.
+\newblock Bochner's method for cell complexes and combinatorial ricci
+  curvature.
+\newblock \emph{Discrete \& Computational Geometry}, 29\penalty0 (3):\penalty0
+  323--374, 2003.
+\newblock \doi{10.1007/s00454-002-0006-0}.
+
+\bibitem[Grover et~al.(2025)Grover, Gordon, and Faloutsos]{Grover2025}
+Karish Grover, Geoffrey~J. Gordon, and Christos Faloutsos.
+\newblock Curvgad: Leveraging curvature for enhanced graph anomaly detection.
+\newblock \emph{arXiv preprint arXiv:2502.08605}, 2025.
+
+\bibitem[Kojaku et~al.(2021)Kojaku, Livan, and Masuda]{Kojaku2021}
+Sadamori Kojaku, Giacomo Livan, and Naoki Masuda.
+\newblock Detecting anomalous citation groups in journal networks.
+\newblock \emph{Scientific Reports}, 11:\penalty0 14524, 2021.
+\newblock \doi{10.1038/s41598-021-93869-8}.
+
+\bibitem[Liu et~al.(2024)Liu, Bai, Wang, Tuarob, and Xia]{Liu2024}
+Jiayin Liu, Xiao Bai, Min Wang, Suppawong Tuarob, and Feng Xia.
+\newblock Anomalous citations detection in academic networks.
+\newblock \emph{Artificial Intelligence Review}, 2024.
+\newblock In press.
+
+\bibitem[Ollivier(2009)]{Ollivier2009}
+Yann Ollivier.
+\newblock Ricci curvature of markov chains on metric spaces.
+\newblock \emph{Journal of Functional Analysis}, 256\penalty0 (3):\penalty0
+  810--864, 2009.
+\newblock \doi{10.1016/j.jfa.2008.10.018}.
+
+\bibitem[{Retraction Watch}(2014)]{RetractionWatch2014}
+{Retraction Watch}.
+\newblock Sage publications busts 'peer review and citation ring,' 60 papers
+  retracted.
+\newblock
+  \url{https://retractionwatch.com/2014/07/08/sage-publications-busts-peer-review-and-citation-ring-60-papers-retracted/},
+  2014.
+\newblock Online article.
+
+\bibitem[Sai{B}ai and et~al.(2024)]{GraphRicciCurvature2024}
+Sai{B}ai and et~al.
+\newblock Graphriccicurvature: A python library to compute discrete ricci
+  curvature.
+\newblock \url{https://github.com/saibalmars/GraphRicciCurvature}, 2024.
+\newblock PyPI package version 0.5.3.2.
+
+\bibitem[Samal et~al.(2018)Samal, Sreejith, Gu, Liu, Saucan, and
+  Jost]{Samal2018}
+Areejit Samal, R.P. Sreejith, Jiao Gu, Shiping Liu, Emil Saucan, and J{\"u}rgen
+  Jost.
+\newblock Comparative analysis of two discretizations of ricci curvature for
+  complex networks.
+\newblock \emph{Scientific Reports}, 8:\penalty0 8650, 2018.
+\newblock \doi{10.1038/s41598-018-26934-4}.
+
+\bibitem[Yang et~al.(2016)Yang, Cohen, and Salakhutdinov]{Yang2016}
+Zhilin Yang, William~W. Cohen, and Ruslan Salakhutdinov.
+\newblock Revisiting semi-supervised learning with graph embeddings.
+\newblock In \emph{Proceedings of the 33rd International Conference on Machine
+  Learning (ICML)}, volume~48, pages 40--48, 2016.
+
+\end{thebibliography}

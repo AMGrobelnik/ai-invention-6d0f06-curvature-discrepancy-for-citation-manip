@@ -1,0 +1,14 @@
+{
+  "title": "Detecting Fake Citations with Geometry",
+  "summary": "This paper presents a publication-ready LaTeX document for a research paper on citation manipulation detection using geometric features. The paper proposes curvature discrepancy—the absolute difference between Ollivier-Ricci and Forman-Ricci curvature—as a simple, interpretable feature for detecting anomalous citations in academic networks. The paper includes all required sections: Abstract, Introduction, Related Work, Methods, Experiments, Discussion, Conclusion, Acknowledgments, and References. Three figures are included: (1) an overview architecture diagram of the detection pipeline (fig1_v0.jpg), (2) concrete examples of curvature computation for high-discrepancy and low-discrepancy edges (fig2_v0.jpg), and (3) a box plot showing discrepancy distributions for normal vs anomalous edges (fig4_v0.jpg). The references.bib file contains 11 BibTeX entries for all cited works, including papers on citation manipulation detection (ACTION, CIDRE, CurvGAD), graph curvature (Ollivier-Ricci, Forman-Ricci), and relevant datasets and tools. The LaTeX source (paper.tex) was compiled to PDF using pdflatex and bibtex, producing an 11-page document with proper formatting, section headings, equations, tables, and figures. Statistical validation results show AUC-ROC of 0.755 (95% CI: [0.608, 0.878]) on a Cora mini dataset with simulated anomalies. The paper honestly assesses limitations including the use of synthetic anomalies, simplified Ollivier-Ricci computation, small dataset size, and absence of real-world ground truth. All figures are properly placed according to their aspect ratios: 21:9 figures use figure* environment for full-width placement, while other figures use standard figure environment. The PDF compilation completed successfully with only minor underfull hbox warnings and no errors. Visual review of all 11 pages confirmed proper layout with no overlapping figures, cut-off text, or formatting problems.",
+  "out_expected_files": {
+    "paper_tex_path": "paper.tex",
+    "paper_pdf_path": "paper.pdf",
+    "references_bib_path": "references.bib",
+    "figure_paths": [
+      "figures/fig1_v0.jpg",
+      "figures/fig2_v0.jpg",
+      "figures/fig4_v0.jpg"
+    ]
+  }
+}
