@@ -1,0 +1,99 @@
+{
+  "metadata": {
+    "description": "Mini demo dataset for Curvature Discrepancy citation manipulation detection",
+    "source": "Cora citation network (curated subset)",
+    "num_datasets": 1,
+    "total_examples": 12
+  },
+  "datasets": [
+    {
+      "dataset": "cora",
+      "examples": [
+        {
+          "input": "{\"node_id\": 0, \"neighbors\": [1, 2, 633, 1862, 2582], \"degree\": 5}",
+          "output": "3",
+          "metadata_node_id": 0,
+          "metadata_degree": 5,
+          "metadata_task_type": "classification"
+        },
+        {
+          "input": "{\"node_id\": 1, \"neighbors\": [0, 2, 652, 654], \"degree\": 4}",
+          "output": "4",
+          "metadata_node_id": 1,
+          "metadata_degree": 4,
+          "metadata_task_type": "classification"
+        },
+        {
+          "input": "{\"node_id\": 2, \"neighbors\": [0, 1, 332, 1454, 1666], \"degree\": 5}",
+          "output": "4",
+          "metadata_node_id": 2,
+          "metadata_degree": 5,
+          "metadata_task_type": "classification"
+        },
+        {
+          "input": "{\"node_id\": 332, \"neighbors\": [2, 1454, 2582], \"degree\": 3}",
+          "output": "4",
+          "metadata_node_id": 332,
+          "metadata_degree": 3,
+          "metadata_task_type": "classification"
+        },
+        {
+          "input": "{\"node_id\": 633, \"neighbors\": [0, 654, 1862], \"degree\": 3}",
+          "output": "3",
+          "metadata_node_id": 633,
+          "metadata_degree": 3,
+          "metadata_task_type": "classification"
+        },
+        {
+          "input": "{\"node_id\": 652, \"neighbors\": [1, 1454, 1666], \"degree\": 3}",
+          "output": "4",
+          "metadata_node_id": 652,
+          "metadata_degree": 3,
+          "metadata_task_type": "classification"
+        },
+        {
+          "input": "{\"node_id\": 654, \"neighbors\": [1, 633, 2582], \"degree\": 3}",
+          "output": "3",
+          "metadata_node_id": 654,
+          "metadata_degree": 3,
+          "metadata_task_type": "classification"
+        },
+        {
+          "input": "{\"node_id\": 1454, \"neighbors\": [2, 332, 652, 1666], \"degree\": 4}",
+          "output": "4",
+          "metadata_node_id": 1454,
+          "metadata_degree": 4,
+          "metadata_task_type": "classification"
+        },
+        {
+          "input": "{\"node_id\": 1666, \"neighbors\": [0, 2, 652, 1454, 1862, 1986], \"degree\": 6}",
+          "output": "3",
+          "metadata_node_id": 1666,
+          "metadata_degree": 6,
+          "metadata_task_type": "classification"
+        },
+        {
+          "input": "{\"node_id\": 1862, \"neighbors\": [0, 633, 1666, 1986], \"degree\": 4}",
+          "output": "3",
+          "metadata_node_id": 1862,
+          "metadata_degree": 4,
+          "metadata_task_type": "classification"
+        },
+        {
+          "input": "{\"node_id\": 1986, \"neighbors\": [1666, 1862, 2582], \"degree\": 3}",
+          "output": "3",
+          "metadata_node_id": 1986,
+          "metadata_degree": 3,
+          "metadata_task_type": "classification"
+        },
+        {
+          "input": "{\"node_id\": 2582, \"neighbors\": [0, 332, 654, 1986], \"degree\": 4}",
+          "output": "3",
+          "metadata_node_id": 2582,
+          "metadata_degree": 4,
+          "metadata_task_type": "classification"
+        }
+      ]
+    }
+  ]
+}
